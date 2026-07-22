@@ -8,7 +8,7 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<>
-			<nav style={{ display: 'flex', gap: '10px', padding: '10px' }}>
+			{/* <nav style={{ display: 'flex', gap: '10px', padding: '10px' }}>
 				<Link to="/" activeProps={{ style: { fontWeight: 'bold' } }}>
 					Home
 				</Link>
@@ -16,7 +16,8 @@ function RootComponent() {
 					About
 				</Link>
 			</nav>
-			<hr />
+
+			<hr /> */}
 			{/* Tempat komponen halaman anak di-render */}
 			<Outlet />
 		</>
