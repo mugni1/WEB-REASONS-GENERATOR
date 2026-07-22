@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
 export const Route = createFileRoute('/')({
 	component: RouteComponent,
@@ -19,11 +20,23 @@ function RouteComponent() {
 				<span className="text-[10px] font-black tracking-[0.3em] text-primary uppercase">Generator Alasan Terbaik</span>{' '}
 				<div className="h-px w-6 bg-linear-to-l from-transparent to-primary/30"></div>
 			</div>
-			<div className="flex flex-col items-center mb-4 gap-4">
+			<div className="flex flex-col items-center mb-8 gap-4">
 				<h1 className="text-6xl font-bold text-center text-foreground">Ngeles</h1>
 				<p className="max-w-md text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400 sm:text-base">Buat alasan sempurna dan meyakinkan dalam sekejap.</p>
 			</div>
-			<Button variant={'outline'}>Click me</Button>
+
+			<Card className="shadow-xl">
+				<CardHeader>
+					<CardTitle>Buat Alasanmu</CardTitle>
+					<CardDescription>Pilih skenario, tentukan tingkat absurditas, biarkan Ngeles bekerja.</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<p>Card Content</p>
+				</CardContent>
+				<CardFooter>
+					<p>Card Footer</p>
+				</CardFooter>
+			</Card>
 		</section>
 	)
 }
