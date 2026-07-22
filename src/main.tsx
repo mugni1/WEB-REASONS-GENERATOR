@@ -6,6 +6,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 // Import route tree yang dibuat otomatis oleh plugin TanStack
 import { routeTree } from './routeTree.gen'
+import { Toaster } from 'sonner'
 
 // Inisialisasi router
 export const router = createRouter({ routeTree })
@@ -23,6 +24,7 @@ if (!rootElement.innerHTML) {
 	root.render(
 		<StrictMode>
 			<RouterProvider router={router} />
+			<Toaster position="top-center" richColors />
 		</StrictMode>,
 	)
 }
