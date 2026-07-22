@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
-import { FaBriefcase, FaChartSimple, FaCircleInfo, FaGraduationCap, FaHouse, FaHouseChimney, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
+import { FaBriefcase, FaChartSimple, FaCircleInfo, FaGraduationCap, FaHouse, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
