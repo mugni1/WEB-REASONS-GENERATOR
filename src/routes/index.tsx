@@ -1,18 +1,25 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
-import { FaChartSimple, FaCircleInfo, FaWandMagicSparkles } from 'react-icons/fa6'
+import { FaBriefcase, FaChartSimple, FaCircleInfo, FaGraduationCap, FaHouse, FaHouseChimney, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { generateReasonSchema } from '@/schema/reason.schema'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export const Route = createFileRoute('/')({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
+	const items = [
+		{ label: 'Kerja', value: 'work', icon: <FaBriefcase className="text-primary" /> },
+		{ label: 'Sekolah', value: 'school', icon: <FaGraduationCap className="text-primary" /> },
+		{ label: 'Nongkrong', value: 'hangOut', icon: <FaUsers className="text-primary" /> },
+		{ label: 'Acara Keluarga', value: 'familyEvent', icon: <FaHouse className="text-primary" /> },
+	]
 	const form = useForm({
 		defaultValues: {
 			myName: '',
@@ -106,6 +113,41 @@ function RouteComponent() {
 												placeholder="Kosongkan unguk alasan umum"
 												autoComplete="off"
 											/>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									)
+								}}
+							/>
+							<form.Field
+								name="reason"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+									const selectedItem = items.find((item) => item.value === field.state.value)
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Alasan (Opsional)</FieldLabel>
+											<Select value={field.state.value} onValueChange={(val: any) => field.handleChange(val)}>
+												<SelectTrigger className="w-full" aria-invalid={isInvalid}>
+													{selectedItem ? (
+														<span className="flex items-center gap-2">
+															{selectedItem.icon && <span className="flex items-center justify-center size-4">{selectedItem.icon}</span>}
+															<span>{selectedItem.label}</span>
+														</span>
+													) : (
+														<SelectValue placeholder="Pilih Alasan" />
+													)}
+												</SelectTrigger>
+												<SelectContent>
+													<SelectGroup>
+														{items.map((item) => (
+															<SelectItem key={item.value} value={item.value}>
+																{item.icon && <span className="flex items-center justify-center size-4">{item.icon}</span>}
+																<span>{item.label}</span>
+															</SelectItem>
+														))}
+													</SelectGroup>
+												</SelectContent>
+											</Select>
 											{isInvalid && <FieldError errors={field.state.meta.errors} />}
 										</Field>
 									)
