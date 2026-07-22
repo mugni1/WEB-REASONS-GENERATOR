@@ -1,13 +1,34 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
-import { FaChartLine, FaChartSimple, FaCircleInfo, FaInfo } from 'react-icons/fa6'
+import { FaChartSimple, FaCircleInfo, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useForm } from '@tanstack/react-form'
+import { toast } from 'sonner'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { generateReasonSchema } from '@/schema/reason.schema'
 
 export const Route = createFileRoute('/')({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
+	const form = useForm({
+		defaultValues: {
+			myName: '',
+			targetName: '',
+			language: 'id',
+			reason: 'school',
+			style: 'normal',
+		},
+		validators: {
+			onSubmit: generateReasonSchema,
+		},
+		onSubmit: async ({ value }) => {
+			console.log(value)
+			toast.success('Form submitted successfully')
+		},
+	})
 	return (
 		<section className="container max-w-2xl mx-auto py-10 p-4">
 			<div className="flex items-center justify-between mb-4">
@@ -35,11 +56,69 @@ function RouteComponent() {
 					<CardTitle className="text-xl font-bold">Buat Alasanmu</CardTitle>
 					<CardDescription>Pilih skenario, tentukan tingkat absurditas, biarkan Ngeles bekerja.</CardDescription>
 				</CardHeader>
+
 				<CardContent>
-					<p>Card Content</p>
+					<form
+						id="generate-reason-form"
+						onSubmit={(e) => {
+							console.log('anjay')
+							e.preventDefault()
+							form.handleSubmit()
+						}}
+					>
+						<FieldGroup>
+							<form.Field
+								name="targetName"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Nama Teman / Target (Opsional)</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												aria-invalid={isInvalid}
+												placeholder="Kosongkan unguk alasan umum"
+												autoComplete="off"
+											/>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									)
+								}}
+							/>
+							<form.Field
+								name="myName"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Nama Anda (Opsional)</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												aria-invalid={isInvalid}
+												placeholder="Kosongkan unguk alasan umum"
+												autoComplete="off"
+											/>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									)
+								}}
+							/>
+						</FieldGroup>
+					</form>
 				</CardContent>
+
 				<CardFooter>
-					<p>Card Footer</p>
+					<Button form="generate-reason-form" className={'w-full'} size={'lg'} type="submit">
+						<FaWandMagicSparkles className="mr-1" /> Buat Alasan
+					</Button>
 				</CardFooter>
 			</Card>
 		</section>
