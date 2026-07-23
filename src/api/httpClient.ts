@@ -3,7 +3,7 @@ import { router } from '../main'
 
 // INTIALIZATION
 const createAxiosInstance = (): AxiosInstance => {
-	const baseURL = import.meta.env.VITE_BASE_API_URL || 'http://localhost:5050'
+	const baseURL = import.meta.env.VITE_BASE_API_URL || 'http://localhost:5051'
 	const timeout = parseInt(import.meta.env.VITE_API_TIMEOUT || '10000')
 	const instance = axios.create({
 		baseURL,

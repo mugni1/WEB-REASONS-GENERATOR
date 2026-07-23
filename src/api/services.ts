@@ -1,12 +1,8 @@
 import type { AxiosResponse } from 'axios'
 import { httpClient } from './httpClient'
 import { ENDPOINT } from './endpoints'
-import type { LoginPayload, AuthResponse, RegisterPayload } from '../schema/auth'
+import type { GenerateReasonPayload, ReasonResponse } from '@/schema/reason.schema'
 
-export const loginService = async (payload: LoginPayload): Promise<AxiosResponse<AuthResponse>> => {
-	return httpClient.post(ENDPOINT.LOGIN, payload)
-}
-
-export const registerService = async (payload: RegisterPayload): Promise<AxiosResponse<AuthResponse>> => {
-	return httpClient.post(ENDPOINT.REGISTER, payload)
+export const createReasonService = async (payload: GenerateReasonPayload): Promise<AxiosResponse<ReasonResponse>> => {
+	return httpClient.post(ENDPOINT.REASON + '/generate', payload)
 }

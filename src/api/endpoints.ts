@@ -1,4 +1,3 @@
 export const ENDPOINT = {
-	LOGIN: `/auth/login`,
-	REGISTER: `/auth/register`,
+	REASON: `/reason`,
 }

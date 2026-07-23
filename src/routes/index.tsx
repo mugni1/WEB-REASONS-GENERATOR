@@ -1,32 +1,23 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
-import {
-	FaBriefcase,
-	FaChartSimple,
-	FaCircleInfo,
-	FaCircleUser,
-	FaFaceLaugh,
-	FaGraduationCap,
-	FaGuaraniSign,
-	FaHouse,
-	FaRobot,
-	FaUsers,
-	FaWandMagicSparkles,
-} from 'react-icons/fa6'
+import { FaBriefcase, FaChartSimple, FaCircleInfo, FaCircleUser, FaFaceLaugh, FaGraduationCap, FaHouse, FaRobot, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { generateReasonSchema } from '@/schema/reason.schema'
+import { generateReasonSchema, type GenerateReasonPayload } from '@/schema/reason.schema'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { useCreateReason } from '@/hooks/useCreateReason'
+import { HttpStatusCode } from 'axios'
 
 export const Route = createFileRoute('/')({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
+	const { mutateAsync, isPending } = useCreateReason()
 	const items = [
 		{ label: 'Kerja', value: 'work', icon: <FaBriefcase className="text-primary" /> },
 		{ label: 'Sekolah', value: 'school', icon: <FaGraduationCap className="text-primary" /> },
@@ -40,13 +31,19 @@ function RouteComponent() {
 			language: 'id',
 			reason: 'work',
 			style: 'normal',
-		},
+		} as GenerateReasonPayload,
 		validators: {
 			onSubmit: generateReasonSchema,
 		},
 		onSubmit: async ({ value }) => {
 			console.log(value)
-			toast.success('Form submitted successfully')
+			const result = await mutateAsync(value)
+			if (!result.status || result.status != HttpStatusCode.Created) {
+				toast.error(result.message)
+			} else {
+				toast.success(result.message)
+				console.log(result.data)
+			}
 		},
 	})
 	return (

@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios'
 import z from 'zod'
 
 export const generateReasonSchema = z.object({
@@ -14,3 +15,13 @@ export const generateReasonSchema = z.object({
 	}),
 })
 export type GenerateReasonPayload = z.infer<typeof generateReasonSchema>
+
+export interface ReasonResponse {
+	status: HttpStatusCode
+	message: string
+	data: {
+		reason: string
+	} | null
+	meta: null
+	errors: null
+}
