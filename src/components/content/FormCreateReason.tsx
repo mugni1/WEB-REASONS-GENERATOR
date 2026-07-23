@@ -21,8 +21,8 @@ export default function FormCreateReason() {
   ]
   const form = useForm({
     defaultValues: {
-      myName: '-',
-      targetName: '-',
+      myName: '',
+      targetName: '',
       language: 'id',
       reason: 'work',
       style: 'normal',
@@ -31,13 +31,14 @@ export default function FormCreateReason() {
       onSubmit: generateReasonSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value)
+      value.myName = value.myName || '-'
+      value.targetName = value.targetName || '-'
       const result = await mutateAsync(value)
-      if (!result.status || result.status != HttpStatusCode.Created) {
+
+      if (result.status != HttpStatusCode.Created) {
         toast.error(result.message)
       } else {
         toast.success(result.message)
-        console.log(result.data)
       }
     },
   })
