@@ -1,16 +1,17 @@
 import FormCreateReason from '@/components/content/FormCreateReason'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { createFileRoute } from '@tanstack/react-router'
+import { Sparkles } from 'lucide-react'
 import { useState } from 'react'
-import { FaChartSimple, FaCircleInfo } from 'react-icons/fa6'
+import { FaChartSimple, FaCircleInfo, FaCopy, FaWhatsapp } from 'react-icons/fa6'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const [reason, setReason] = useState<string>('')
+  const [result, setResult] = useState<{ reason: string; scenario: string; style: string } | null>(null)
 
   return (
     <section className="container max-w-2xl mx-auto py-10 space-y-8 p-4">
@@ -38,18 +39,32 @@ function RouteComponent() {
       </div>
 
       {/* Form Create Reason */}
-      <FormCreateReason onSuccess={setReason} />
+      <FormCreateReason onSuccess={({ reason, scenario, style }) => setResult({ reason, scenario, style })} />
 
       {/* Result */}
-      {reason && (
+      {result && (
         <Card className="shadow-xl">
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Hasil</CardTitle>
-            <CardDescription>Berikut adalah alasan yang dihasilkan</CardDescription>
+            <CardTitle className="flex justify-between items-center">
+              <div className="text-xl font-semibold flex items-center gap-2">
+                <Sparkles className=" size-5" /> Hasil Ngeles
+              </div>
+            </CardTitle>
+            <CardDescription>
+              Alasan yang dihasilkan untuk <span className="font-semibold">{result.scenario}</span> dengan gaya <span className="font-semibold">{result.style}.</span>
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <p>{reason}</p>
+            <p>"{result.reason}"</p>
           </CardContent>
+          <CardFooter className="space-x-2">
+            <Button variant={'secondary'}>
+              <FaCopy className="size-4"></FaCopy> Salin
+            </Button>
+            <Button variant={'secondary'} size={'icon'}>
+              <FaWhatsapp className="size-4"></FaWhatsapp>
+            </Button>
+          </CardFooter>
         </Card>
       )}
     </section>

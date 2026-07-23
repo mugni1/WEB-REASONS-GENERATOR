@@ -11,8 +11,8 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useCreateReason } from '@/hooks/useCreateReason'
 import { HttpStatusCode } from 'axios'
 
-interface FormCreateReasonProps {
-  onSuccess: (reason: string) => void
+export interface FormCreateReasonProps {
+  onSuccess: (data: { reason: string; scenario: string; style: string }) => void
 }
 
 const items = [
@@ -45,14 +45,27 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
         toast.error(result.message)
       } else {
         toast.success(result.message)
-        onSuccess(result.data?.reason || '')
+        const scenario = {
+          work: 'Kerja',
+          school: 'Sekolah',
+          hangOut: 'Nongkrong',
+          familyEvent: 'Acara Keluarga',
+        }[value.reason]
+        const style = {
+          normal: 'Normal',
+          stupid: 'Konyol',
+          absurd: 'Aneh / Diluar Nalar',
+        }[value.style]
+        onSuccess({ reason: result.data?.reason || '', scenario, style })
       }
     },
   })
   return (
     <Card className="shadow-xl">
       <CardHeader>
-        <CardTitle className="text-xl font-bold">Buat Alasanmu</CardTitle>
+        <CardTitle className="text-xl font-semibold flex items-center gap-2">
+          <FaWandMagicSparkles className="size-5" /> Buat Alasanmu
+        </CardTitle>
         <CardDescription>Pilih skenario, tentukan tingkat absurditas, biarkan Ngeles bekerja.</CardDescription>
       </CardHeader>
 
@@ -71,7 +84,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Nama Teman / Target (Opsional)</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Nama Target / Penerima (Opsional)</FieldLabel>
                     <Input
                       id={field.name}
                       name={field.name}
@@ -116,7 +129,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                 const selectedItem = items.find((item) => item.value === field.state.value)
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Alasan (Opsional)</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Skenario</FieldLabel>
                     <Select value={field.state.value} onValueChange={(val: any) => field.handleChange(val)}>
                       <SelectTrigger className="w-full" aria-invalid={isInvalid}>
                         {selectedItem ? (
@@ -150,16 +163,16 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Tingkat Absurditas</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Gaya Alasan</FieldLabel>
                     <ToggleGroup variant={'outline'} size="lg" onValueChange={(val: any) => field.handleChange(val[0])}>
                       <ToggleGroupItem value="normal" aria-invalid={isInvalid}>
                         <FaCircleUser className="size-4 text-primary mr-1" /> Normal
                       </ToggleGroupItem>
                       <ToggleGroupItem value="stupid" aria-invalid={isInvalid}>
-                        <FaFaceLaugh className="size-4 text-primary mr-1" /> Lucu
+                        <FaFaceLaugh className="size-4 text-primary mr-1" /> Konyol
                       </ToggleGroupItem>
                       <ToggleGroupItem value="absurd" aria-invalid={isInvalid}>
-                        <FaRobot className="size-4 text-primary mr-1" /> Absurd
+                        <FaRobot className="size-4 text-primary mr-1" /> Aneh / Diluar Nalar
                       </ToggleGroupItem>
                     </ToggleGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
