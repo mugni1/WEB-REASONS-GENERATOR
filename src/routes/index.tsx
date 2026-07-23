@@ -38,7 +38,7 @@ function RouteComponent() {
 			myName: '',
 			targetName: '',
 			language: 'id',
-			reason: 'school',
+			reason: 'work',
 			style: 'normal',
 		},
 		validators: {

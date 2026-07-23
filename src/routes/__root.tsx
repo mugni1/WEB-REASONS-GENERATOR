@@ -20,7 +20,7 @@ function RootComponent() {
 			<hr /> */}
 			{/* Tempat kompon
 			en halaman anak di-render */}
-			<main className="z-99 bg-foreground/5 backdrop-blur-xs min-h-svh">
+			<main className="relative z-10 bg-foreground/5 backdrop-blur-xs min-h-svh">
 				<Outlet />
 			</main>
 			<div className="fixed z-0 bottom-10 translate-x-10 right-0 aspect-square w-4/12 md:w-2/12 rounded-full bg-primary-foreground blur-xs"></div>
