@@ -1,6 +1,18 @@
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
-import { FaBriefcase, FaChartSimple, FaCircleInfo, FaGraduationCap, FaHouse, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
+import {
+	FaBriefcase,
+	FaChartSimple,
+	FaCircleInfo,
+	FaCircleUser,
+	FaFaceLaugh,
+	FaGraduationCap,
+	FaGuaraniSign,
+	FaHouse,
+	FaRobot,
+	FaUsers,
+	FaWandMagicSparkles,
+} from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
@@ -8,6 +20,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field
 import { Input } from '@/components/ui/input'
 import { generateReasonSchema } from '@/schema/reason.schema'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 export const Route = createFileRoute('/')({
 	component: RouteComponent,
@@ -148,6 +161,29 @@ function RouteComponent() {
 													</SelectGroup>
 												</SelectContent>
 											</Select>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									)
+								}}
+							/>
+							<form.Field
+								name="style"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Tingkat Absurditas</FieldLabel>
+											<ToggleGroup variant={'outline'} size="lg" onValueChange={(val: any) => field.handleChange(val[0])}>
+												<ToggleGroupItem value="normal" aria-invalid={isInvalid}>
+													<FaCircleUser className="size-4 text-primary mr-1" /> Normal
+												</ToggleGroupItem>
+												<ToggleGroupItem value="stupid" aria-invalid={isInvalid}>
+													<FaFaceLaugh className="size-4 text-primary" /> Lucu
+												</ToggleGroupItem>
+												<ToggleGroupItem value="absurd" aria-invalid={isInvalid}>
+													<FaRobot className="size-4 text-primary mr-1" /> Absurd
+												</ToggleGroupItem>
+											</ToggleGroup>
 											{isInvalid && <FieldError errors={field.state.meta.errors} />}
 										</Field>
 									)
