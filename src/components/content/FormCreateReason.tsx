@@ -11,14 +11,22 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useCreateReason } from '@/hooks/useCreateReason'
 import { HttpStatusCode } from 'axios'
 
-export default function FormCreateReason() {
-  const { mutateAsync } = useCreateReason()
-  const items = [
-    { label: 'Kerja', value: 'work', icon: <FaBriefcase className="text-primary" /> },
-    { label: 'Sekolah', value: 'school', icon: <FaGraduationCap className="text-primary" /> },
-    { label: 'Nongkrong', value: 'hangOut', icon: <FaUsers className="text-primary" /> },
-    { label: 'Acara Keluarga', value: 'familyEvent', icon: <FaHouse className="text-primary" /> },
-  ]
+interface FormCreateReasonProps {
+  onSuccess: (reason: string) => void
+}
+
+const items = [
+  { label: 'Kerja', value: 'work', icon: <FaBriefcase className="text-primary" /> },
+  { label: 'Sekolah', value: 'school', icon: <FaGraduationCap className="text-primary" /> },
+  { label: 'Nongkrong', value: 'hangOut', icon: <FaUsers className="text-primary" /> },
+  { label: 'Acara Keluarga', value: 'familyEvent', icon: <FaHouse className="text-primary" /> },
+]
+
+export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
+  // state
+  const { mutateAsync, isPending } = useCreateReason()
+
+  // form
   const form = useForm({
     defaultValues: {
       myName: '',
@@ -31,14 +39,13 @@ export default function FormCreateReason() {
       onSubmit: generateReasonSchema,
     },
     onSubmit: async ({ value }) => {
-      value.myName = value.myName || '-'
-      value.targetName = value.targetName || '-'
       const result = await mutateAsync(value)
 
       if (result.status != HttpStatusCode.Created) {
         toast.error(result.message)
       } else {
         toast.success(result.message)
+        onSuccess(result.data?.reason || '')
       }
     },
   })
@@ -53,7 +60,6 @@ export default function FormCreateReason() {
         <form
           id="generate-reason-form"
           onSubmit={(e) => {
-            console.log('anjay')
             e.preventDefault()
             form.handleSubmit()
           }}
@@ -166,8 +172,8 @@ export default function FormCreateReason() {
       </CardContent>
 
       <CardFooter>
-        <Button form="generate-reason-form" className={'w-full'} size={'lg'} type="submit">
-          <FaWandMagicSparkles className="mr-1" /> Buat Alasan
+        <Button form="generate-reason-form" className={'w-full'} size={'lg'} type="submit" disabled={isPending}>
+          {isPending ? 'Membuat alasan...' : 'Buat Alasan'}
         </Button>
       </CardFooter>
     </Card>
