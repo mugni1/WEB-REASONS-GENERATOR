@@ -1,3 +1,3 @@
 export const ENDPOINT = {
-	REASON: `/reason`,
+  REASON: `/reason`,
 }

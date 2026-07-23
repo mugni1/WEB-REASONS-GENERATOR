@@ -14,21 +14,21 @@ export const router = createRouter({ routeTree })
 
 // Register tipe router untuk full TypeScript type-safety
 declare module '@tanstack/react-router' {
-	interface Register {
-		router: typeof router
-	}
+  interface Register {
+    router: typeof router
+  }
 }
 
 const rootElement = document.getElementById('root')!
 if (!rootElement.innerHTML) {
-	const root = ReactDOM.createRoot(rootElement)
-	const queryClient = new QueryClient()
-	root.render(
-		<StrictMode>
-			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
-				<Toaster position="top-center" richColors />
-			</QueryClientProvider>
-		</StrictMode>,
-	)
+  const root = ReactDOM.createRoot(rootElement)
+  const queryClient = new QueryClient()
+  root.render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <Toaster position="top-center" richColors />
+      </QueryClientProvider>
+    </StrictMode>,
+  )
 }
