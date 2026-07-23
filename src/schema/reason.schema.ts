@@ -22,6 +22,22 @@ export interface ReasonResponse {
   data: {
     reason: string
   } | null
-  meta: null
+  meta: null | {
+    total: number
+  }
+  errors: null
+}
+
+export interface GetReasonResponse {
+  status: HttpStatusCode
+  message: string
+  data:
+    | {
+        reason: string
+      }[]
+    | null
+  meta: null | {
+    total: number
+  }
   errors: null
 }

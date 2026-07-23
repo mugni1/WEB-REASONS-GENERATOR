@@ -1,6 +1,7 @@
 import FormCreateReason from '@/components/content/FormCreateReason'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useGetReason } from '@/hooks/useGetReason'
 import { createFileRoute } from '@tanstack/react-router'
 import { Sparkles } from 'lucide-react'
 import { useState } from 'react'
@@ -12,6 +13,7 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   const [result, setResult] = useState<{ reason: string; scenario: string; style: string } | null>(null)
+  const { data, isPending } = useGetReason()
 
   return (
     <section className="container max-w-2xl mx-auto py-10 space-y-8 p-4">
@@ -19,7 +21,7 @@ function RouteComponent() {
       <div className="flex items-center justify-between">
         <Button variant={'outline'} size={'sm'}>
           <FaChartSimple className="size-3 text-primary mr-1" />
-          <span className="font-semibold">14.000</span>
+          <span className="font-semibold">{isPending ? 'Loading...' : data?.meta?.total}</span>
           <span className="text-foreground/50">Di Buat</span>
         </Button>
         <Button variant={'outline'} size={'sm'}>
