@@ -5,11 +5,11 @@ import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { generateReasonSchema, type GenerateReasonPayload } from '@/schema/reason.schema'
+import { createReasonSchema, type CreateReasonPayload } from '@/schema/reason.schema'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { useCreateReason } from '@/hooks/useCreateReason'
 import { HttpStatusCode } from 'axios'
+import { useCreateReasonV2 } from '@/hooks/useCreateReasonV2'
 
 export interface FormCreateReasonProps {
   onSuccess: (data: { reason: string; scenario: string; style: string }) => void
@@ -24,19 +24,19 @@ const items = [
 
 export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
   // state
-  const { mutateAsync, isPending } = useCreateReason()
+  const { mutateAsync, isPending } = useCreateReasonV2()
 
   // form
   const form = useForm({
     defaultValues: {
-      myName: '',
-      targetName: '',
+      maker: '',
+      target: '',
       language: 'id',
-      reason: 'work',
+      scenario: 'work',
       style: 'normal',
-    } as GenerateReasonPayload,
+    } as CreateReasonPayload,
     validators: {
-      onSubmit: generateReasonSchema,
+      onSubmit: createReasonSchema,
     },
     onSubmit: async ({ value }) => {
       const result = await mutateAsync(value)
@@ -50,10 +50,10 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
           school: 'Sekolah',
           hangOut: 'Nongkrong',
           familyEvent: 'Acara Keluarga',
-        }[value.reason]
+        }[value.scenario]
         const style = {
           normal: 'Normal',
-          stupid: 'Konyol',
+          funny: 'Lucu',
           absurd: 'Aneh / Diluar Nalar',
         }[value.style]
         onSuccess({ reason: result.data?.reason || '', scenario, style })
@@ -79,7 +79,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
         >
           <FieldGroup>
             <form.Field
-              name="targetName"
+              name="target"
               children={(field) => {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
@@ -101,7 +101,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
               }}
             />
             <form.Field
-              name="myName"
+              name="maker"
               children={(field) => {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
@@ -123,7 +123,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
               }}
             />
             <form.Field
-              name="reason"
+              name="scenario"
               children={(field) => {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 const selectedItem = items.find((item) => item.value === field.state.value)
@@ -168,7 +168,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                       <ToggleGroupItem value="normal" aria-invalid={isInvalid}>
                         <FaCircleUser className="size-4 text-primary mr-1" /> Normal
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="stupid" aria-invalid={isInvalid}>
+                      <ToggleGroupItem value="funny" aria-invalid={isInvalid}>
                         <FaFaceLaugh className="size-4 text-primary mr-1" /> Konyol
                       </ToggleGroupItem>
                       <ToggleGroupItem value="absurd" aria-invalid={isInvalid}>

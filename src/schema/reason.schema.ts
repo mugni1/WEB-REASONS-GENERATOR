@@ -16,6 +16,15 @@ export const generateReasonSchema = z.object({
 })
 export type GenerateReasonPayload = z.infer<typeof generateReasonSchema>
 
+export const createReasonSchema = z.object({
+  maker: z.string('maker is required').max(20, 'maximum maker must have 20 character'),
+  target: z.string('target is required').max(20, 'maximum target must have 20 character'),
+  language: z.enum(['id', 'en', 'jp'], "language must be 'id', 'en', or 'jp'"),
+  scenario: z.enum(['school', 'work', 'familyEvent', 'hangOut'], "scenario must be 'school', 'work', 'familyEvent', or 'hangOut'"),
+  style: z.enum(['normal', 'funny', 'absurd'], "style must be 'normal', 'funny', or 'absurd'"),
+})
+export type CreateReasonPayload = z.infer<typeof createReasonSchema>
+
 export interface ReasonResponse {
   status: HttpStatusCode
   message: string
