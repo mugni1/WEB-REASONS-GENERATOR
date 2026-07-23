@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { FaBriefcase, FaCircleUser, FaFaceLaugh, FaGraduationCap, FaHouse, FaRobot, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
+import { FaBriefcase, FaCircleNotch, FaCircleUser, FaFaceLaugh, FaGraduationCap, FaHouse, FaRobot, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
@@ -156,7 +156,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                         <FaCircleUser className="size-4 text-primary mr-1" /> Normal
                       </ToggleGroupItem>
                       <ToggleGroupItem value="stupid" aria-invalid={isInvalid}>
-                        <FaFaceLaugh className="size-4 text-primary" /> Lucu
+                        <FaFaceLaugh className="size-4 text-primary mr-1" /> Lucu
                       </ToggleGroupItem>
                       <ToggleGroupItem value="absurd" aria-invalid={isInvalid}>
                         <FaRobot className="size-4 text-primary mr-1" /> Absurd
@@ -173,7 +173,17 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
 
       <CardFooter>
         <Button form="generate-reason-form" className={'w-full'} size={'lg'} type="submit" disabled={isPending}>
-          {isPending ? 'Membuat alasan...' : 'Buat Alasan'}
+          {isPending ? (
+            <>
+              <FaCircleNotch className="animate-spin mr-1" />
+              Membuat Alasan...
+            </>
+          ) : (
+            <>
+              <FaWandMagicSparkles className="mr-1" />
+              Buat Alasan
+            </>
+          )}
         </Button>
       </CardFooter>
     </Card>
