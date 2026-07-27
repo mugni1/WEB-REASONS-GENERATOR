@@ -19,11 +19,10 @@ export const handleErrorResponse = (error: unknown) => {
 }
 
 export const handleErrorCreateQrisPwResponse = (error: unknown) => {
-  let message = 'Internal Server Error'
   if (error instanceof AxiosError) {
-    message = error.response?.data?.message || error.message
+    error.response?.data?.message
   } else if (error instanceof Error) {
-    message = error.message
+    error.message
   }
   return {
     success: null,

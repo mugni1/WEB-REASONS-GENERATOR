@@ -1,0 +1,11 @@
+services:
+  web-reasons-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-reasons-generator
+    ports:
+      - '4173:4173'
+    env_file:
+      - .env
+    restart: unless-stopped
