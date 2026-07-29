@@ -16,6 +16,10 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
+  server: {
+    host: true,
+    allowedHosts: ['reason.mugni.web.id', 'localhost'],
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # 2. Install HANYA production dependencies (ringan & hemat RAM)
-RUN pnpm install --prod --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # 3. Salin folder dist (hasil build lokal) dan file pendukung
 COPY dist ./dist
@@ -16,4 +16,4 @@ COPY dist ./dist
 EXPOSE 4173
 
 # Jalankan aplikasi
-CMD ["pnpm", "preview"]
+CMD ["pnpm", "preview", "--host", "0.0.0.0"]
