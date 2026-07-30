@@ -44,7 +44,7 @@ function RouteComponent() {
           <span className="text-[10px] font-black tracking-[0.3em] text-primary uppercase">Generator Alasan Terbaik</span>{' '}
           <div className="h-px w-6 bg-linear-to-l from-transparent to-primary/30"></div>
         </div>
-        <h1 className="text-6xl font-bold text-center text-foreground">Ngeles</h1>
+        <h1 className="text-6xl font-extrabold text-center text-foreground">NGELES</h1>
         <p className="max-w-md text-sm font-medium leading-relaxed text-foreground/50 dark:text-slate-400 sm:text-base text-center">
           Buat alasan sempurna dan meyakinkan dalam sekejap.
         </p>
