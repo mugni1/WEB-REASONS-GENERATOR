@@ -42,7 +42,16 @@ export interface GetReasonResponse {
   message: string
   data:
     | {
+        createdAt: string
+        language: string
+        maker: string
+        scenario: string
         reason: string
+        style: string
+        target: string
+        updatedAt: string
+        __v: number
+        _id: string
       }[]
     | null
   meta: null | {

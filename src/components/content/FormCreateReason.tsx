@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { FaBriefcase, FaCircleNotch, FaCircleUser, FaFaceLaugh, FaGraduationCap, FaHouse, FaRobot, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
+import { FaBriefcase, FaCircleNotch, FaFaceFlushed, FaFaceLaugh, FaFaceSmile, FaGraduationCap, FaHouse, FaUsers, FaWandMagicSparkles } from 'react-icons/fa6'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
@@ -165,14 +165,14 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor={field.name}>Gaya Alasan</FieldLabel>
                     <ToggleGroup variant={'outline'} size="lg" onValueChange={(val: any) => field.handleChange(val[0])} className={'overflow-auto'}>
-                      <ToggleGroupItem value="normal" aria-invalid={isInvalid}>
-                        <FaCircleUser className="size-4 text-primary mr-1" /> Normal
+                      <ToggleGroupItem value="normal" aria-invalid={isInvalid} className={'text-sky-500'}>
+                        <FaFaceSmile className="size-4 text-sky-500 mr-1" /> Normal
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="funny" aria-invalid={isInvalid}>
-                        <FaFaceLaugh className="size-4 text-primary mr-1" /> Konyol
+                      <ToggleGroupItem value="funny" aria-invalid={isInvalid} className={'text-yellow-500'}>
+                        <FaFaceLaugh className="size-4 text-yellow-500 mr-1" /> Konyol
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="absurd" aria-invalid={isInvalid}>
-                        <FaRobot className="size-4 text-primary mr-1" /> Absurd
+                      <ToggleGroupItem value="absurd" aria-invalid={isInvalid} className={'text-destructive'}>
+                        <FaFaceFlushed className="size-4 text-destructive mr-1" /> Absurd
                       </ToggleGroupItem>
                     </ToggleGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}

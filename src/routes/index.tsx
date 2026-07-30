@@ -1,4 +1,5 @@
 import FormCreateReason from '@/components/content/FormCreateReason'
+import ListReason from '@/components/content/ListReason'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useGetReason } from '@/hooks/useGetReason'
@@ -76,6 +77,9 @@ function RouteComponent() {
           </CardFooter>
         </Card>
       )}
+
+      {/* List Reason */}
+      <ListReason />
     </section>
   )
 }
