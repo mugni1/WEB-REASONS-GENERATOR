@@ -44,7 +44,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
       if (result.status != HttpStatusCode.Created) {
         toast.error(result.message)
       } else {
-        toast.success(result.message)
+        toast.success('Berhasil Membuat Alasan!')
         const scenario = {
           work: 'Kerja',
           school: 'Sekolah',

@@ -6,6 +6,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { FaChartSimple, FaCircleInfo, FaCopy, FaWhatsapp } from 'react-icons/fa6'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -14,6 +15,12 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
   const [result, setResult] = useState<{ reason: string; scenario: string; style: string } | null>(null)
   const { data, isPending } = useGetReason()
+
+  // function
+  const handleCopy = () => {
+    navigator.clipboard.writeText(result?.reason || '')
+    toast.success('Berhasil di Salin!')
+  }
 
   return (
     <section className="container max-w-2xl mx-auto py-10 space-y-8 p-4">
@@ -60,10 +67,10 @@ function RouteComponent() {
             <p>"{result.reason}"</p>
           </CardContent>
           <CardFooter className="space-x-2">
-            <Button variant={'secondary'}>
+            <Button variant={'secondary'} onClick={() => handleCopy()}>
               <FaCopy className="size-4"></FaCopy> Salin
             </Button>
-            <Button variant={'secondary'} size={'icon'}>
+            <Button variant={'secondary'} size={'icon'} onClick={() => window.open(`https://wa.me/?text=${result.reason}`)}>
               <FaWhatsapp className="size-4"></FaWhatsapp>
             </Button>
           </CardFooter>
