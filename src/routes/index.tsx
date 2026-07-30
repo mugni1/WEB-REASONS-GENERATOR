@@ -24,8 +24,8 @@ function RouteComponent() {
           <span className="font-semibold">{isPending ? 'Loading...' : data?.meta?.total}</span>
           <span className="text-foreground/50">Di Buat</span>
         </Button>
-        <Button variant={'outline'} size={'sm'}>
-          <FaCircleInfo className="size-3 text-primary mr-1" /> Bantuan
+        <Button variant={'outline'} size={'sm'} disabled>
+          <FaCircleInfo className="size-3 text-primary mr-1" /> Beta Version
         </Button>
       </div>
 

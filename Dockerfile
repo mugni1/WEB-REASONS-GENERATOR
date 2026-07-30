@@ -12,6 +12,9 @@ RUN pnpm install --frozen-lockfile
 # 3. Salin folder dist (hasil build lokal) dan file pendukung
 COPY dist ./dist
 
+# 4. Salin vite.config.ts
+COPY vite.config.ts ./
+
 # Ekspos port aplikasi
 EXPOSE 4173
 

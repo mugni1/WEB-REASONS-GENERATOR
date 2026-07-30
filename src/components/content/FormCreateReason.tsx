@@ -164,7 +164,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                 return (
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor={field.name}>Gaya Alasan</FieldLabel>
-                    <ToggleGroup variant={'outline'} size="lg" onValueChange={(val: any) => field.handleChange(val[0])}>
+                    <ToggleGroup variant={'outline'} size="lg" onValueChange={(val: any) => field.handleChange(val[0])} className={'overflow-auto'}>
                       <ToggleGroupItem value="normal" aria-invalid={isInvalid}>
                         <FaCircleUser className="size-4 text-primary mr-1" /> Normal
                       </ToggleGroupItem>
@@ -172,7 +172,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                         <FaFaceLaugh className="size-4 text-primary mr-1" /> Konyol
                       </ToggleGroupItem>
                       <ToggleGroupItem value="absurd" aria-invalid={isInvalid}>
-                        <FaRobot className="size-4 text-primary mr-1" /> Aneh / Diluar Nalar
+                        <FaRobot className="size-4 text-primary mr-1" /> Absurd
                       </ToggleGroupItem>
                     </ToggleGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
