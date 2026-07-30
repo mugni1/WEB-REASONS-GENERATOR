@@ -37,23 +37,23 @@ export interface ReasonResponse {
   errors: null
 }
 
+export interface Reason {
+  createdAt: string
+  language: string
+  maker: string
+  scenario: string
+  reason: string
+  style: string
+  target: string
+  updatedAt: string
+  __v: number
+  _id: string
+}
+
 export interface GetReasonResponse {
   status: HttpStatusCode
   message: string
-  data:
-    | {
-        createdAt: string
-        language: string
-        maker: string
-        scenario: string
-        reason: string
-        style: string
-        target: string
-        updatedAt: string
-        __v: number
-        _id: string
-      }[]
-    | null
+  data: Reason[] | null
   meta: null | {
     total: number
   }

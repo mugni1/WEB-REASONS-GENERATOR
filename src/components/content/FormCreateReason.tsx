@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { HttpStatusCode } from 'axios'
 import { useCreateReasonV2 } from '@/hooks/useCreateReasonV2'
+import { useQueryClient } from '@tanstack/react-query'
 
 export interface FormCreateReasonProps {
   onSuccess: (data: { reason: string; scenario: string; style: string }) => void
@@ -25,6 +26,7 @@ const items = [
 export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
   // state
   const { mutateAsync, isPending } = useCreateReasonV2()
+  const queryClient = useQueryClient()
 
   // form
   const form = useForm({
@@ -56,6 +58,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
           funny: 'Lucu',
           absurd: 'Aneh / Diluar Nalar',
         }[value.style]
+        queryClient.invalidateQueries({ queryKey: ['reason'] })
         onSuccess({ reason: result.data?.reason || '', scenario, style })
       }
     },

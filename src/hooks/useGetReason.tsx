@@ -16,5 +16,6 @@ export const useGetReason = () => {
   return useQuery({
     queryKey: ['reason'],
     queryFn: () => fetch(),
+    refetchInterval: 1000 * 20,
   })
 }

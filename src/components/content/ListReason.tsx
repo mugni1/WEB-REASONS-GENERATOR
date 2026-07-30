@@ -1,14 +1,12 @@
-import { useGetReason } from '@/hooks/useGetReason'
 import { ListChevronsDownUp, Loader2Icon } from 'lucide-react'
 import { CardContent, CardHeader, CardTitle } from '../ui/card'
 import { FaBriefcase, FaCopy, FaUserAstronaut, FaWhatsapp, FaGraduationCap, FaUsers, FaHouse, FaFaceLaugh, FaFaceSmile, FaFaceFlushed } from 'react-icons/fa6'
 import { Button } from '../ui/button'
 import { toast } from 'sonner'
 import { Badge } from '../ui/badge'
+import type { Reason } from '@/schema/reason.schema'
 
-export default function ListReason() {
-  const { data, isPending } = useGetReason()
-
+export default function ListReason({ data, isPending }: { data: Reason[]; isPending: boolean }) {
   // function
   const handleCopy = (value: string) => {
     navigator.clipboard.writeText(value)
@@ -134,7 +132,7 @@ export default function ListReason() {
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-1 gap-4">
-            {data?.data?.map((item) => (
+            {data?.map((item) => (
               <div key={item.reason} className="border rounded-[min(var(--radius-4xl),24px)] p-4 bg-background">
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 capitalize">
