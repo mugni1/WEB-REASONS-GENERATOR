@@ -172,7 +172,7 @@ export default function FormCreateReason({ onSuccess }: FormCreateReasonProps) {
                         <FaFaceLaugh className="size-4 text-yellow-500 mr-1" /> Konyol
                       </ToggleGroupItem>
                       <ToggleGroupItem value="absurd" aria-invalid={isInvalid} className={'text-destructive'}>
-                        <FaFaceFlushed className="size-4 text-destructive mr-1" /> Absurd
+                        <FaFaceFlushed className="size-4 text-destructive mr-1" /> Aneh
                       </ToggleGroupItem>
                     </ToggleGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}

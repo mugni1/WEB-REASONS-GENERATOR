@@ -45,7 +45,9 @@ function RouteComponent() {
           <div className="h-px w-6 bg-linear-to-l from-transparent to-primary/30"></div>
         </div>
         <h1 className="text-6xl font-bold text-center text-foreground">Ngeles</h1>
-        <p className="max-w-md text-sm font-medium leading-relaxed text-foreground/50 dark:text-slate-400 sm:text-base">Buat alasan sempurna dan meyakinkan dalam sekejap.</p>
+        <p className="max-w-md text-sm font-medium leading-relaxed text-foreground/50 dark:text-slate-400 sm:text-base text-center">
+          Buat alasan sempurna dan meyakinkan dalam sekejap.
+        </p>
       </div>
 
       {/* Form Create Reason */}
@@ -61,7 +63,7 @@ function RouteComponent() {
               </div>
             </CardTitle>
             <CardDescription>
-              Alasan yang dihasilkan untuk <span className="font-semibold">{result.scenario}</span> dengan gaya <span className="font-semibold">{result.style}.</span>
+              Alasan <span className="font-semibold">{result.scenario}</span> dengan gaya <span className="font-semibold">{result.style}.</span>
             </CardDescription>
           </CardHeader>
           <CardContent>
