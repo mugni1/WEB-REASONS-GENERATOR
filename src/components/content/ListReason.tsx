@@ -56,7 +56,7 @@ export default function ListReason() {
         return (
           <div className="flex items-center gap-1">
             <FaBriefcase className="mr-1 size-3 inline" />
-            Sekolah
+            Kerja
           </div>
         )
       case 'familyEvent':
