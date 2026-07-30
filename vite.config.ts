@@ -16,9 +16,13 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
+  preview: {
+    host: '0.0.0.0',
+    allowedHosts: true,
+  },
   server: {
-    host: true,
-    allowedHosts: ['reason.mugni.web.id', 'localhost'],
+    host: '0.0.0.0',
+    allowedHosts: true,
   },
   resolve: {
     alias: {
